@@ -17,8 +17,21 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
     return [
         'name' => $faker->name,
+        'username' => $faker->word,
+        'dob' => Carbon\Carbon::parse('Nov 9 1994') ,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Article::class, function (Faker\Generator $faker) {
+    static $password;
+
+    return [
+        'user_id' => App\User::all()->random()->id,
+        'content' => $faker->paragraph(3),
+        'live' =>    $faker->boolean(50),
+        'post_on' => Carbon\Carbon::parse('+1 week'),
     ];
 });

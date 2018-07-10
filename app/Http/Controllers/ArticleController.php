@@ -15,7 +15,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $articles = Article::paginate(10);
+        return view('article.index',compact('articles'));
     }
 
     /**
@@ -44,7 +45,7 @@ class ArticleController extends Controller
           'post_on' => $request->input('poston')
         ]) ;
         if($article){
-            return redirect('/');
+            return redirect('/article');
         }else{
             return "Not Inserted due to some problem";
         }
@@ -58,7 +59,8 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        $article = Article::findOrFail($id);
+        return view('article.show',compact('article'));
     }
 
     /**
@@ -69,7 +71,8 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $article = Article::findOrFail($id);
+        return view('article.edit',compact('article'));
     }
 
     /**
@@ -81,7 +84,13 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $article = Article::findOrFail($id)->first();
+        $article->content = $request->content;
+        $article->live = $request->live;
+        $article->post_on = $request->poston;
+        $article->update();
+
+        return redirect('/article');
     }
 
     /**
@@ -91,7 +100,8 @@ class ArticleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {    
+        Article::destroy($id);
+        return redirect('/article')->with('msg','Article has deleted');
     }
 }

@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <div id="app">
@@ -52,8 +53,10 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="{{ url('/article/create') }}">Create Article</a> </li>
-                                    <li><a href="{{ url('/profile/ubaidraza ') }}">Profile</a> </li>
+                                    <li><a href="/profile/{{Auth::user()->username}}">Profile</a> </li>
+                                    <li><a href="/">Home</a> </li>
+                                    <li><a href="/article/create">Create Article</a> </li>
+                                    <li><a href="/article">Feed</a> </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
